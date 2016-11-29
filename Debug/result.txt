@@ -1,0 +1,38 @@
+
+vertex #0:
+Edges out: 16 13 
+Edges in: 
+vertex #1:
+Edges out: 12 
+Edges in: 16 4 
+vertex #2:
+Edges out: 14 4 
+Edges in: 13 9 
+vertex #3:
+Edges out: 9 20 
+Edges in: 12 7 
+vertex #4:
+Edges out: 7 4 
+Edges in: 14 
+vertex #5:
+Edges out: 
+Edges in: 20 4 
+
+vertex #0:
+Edges out: 12 13 
+Edges in: 4 4 
+vertex #1:
+Edges out: 8 4 
+Edges in: 4 4 4 
+vertex #2:
+Edges out: 10 4 4 
+Edges in: 4 5 4 
+vertex #3:
+Edges out: 5 20 4 
+Edges in: 4 7 
+vertex #4:
+Edges out: 7 4 
+Edges in: 4 4 
+vertex #5:
+Edges out: 4 
+Edges in: 
