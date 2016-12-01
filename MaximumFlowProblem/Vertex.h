@@ -11,6 +11,7 @@ private:
 
 	std::vector<Edge> edgesOut;
 	std::vector<Edge> edgesIn;
+	/// size_t index;
 
 public:
 	/*Vertex(){}
@@ -25,10 +26,10 @@ public:
 	void print() const {
 		std::cout << "Edges out: ";
 		for (size_t i = 0; i < edgesOut.size(); i++)
-			std::cout << edgesOut[i].getCapacity() << " ";
+			std::cout << edgesOut[i].getValue() << "/" << edgesOut[i].getCapacity() << "    ";
 		std::cout << "\nEdges in: ";
 		for (size_t i = 0; i < edgesIn.size(); i++)
-			std::cout << edgesIn[i].getCapacity() << " ";
+			std::cout << edgesIn[i].getValue() << "/" << edgesIn[i].getCapacity() << "   ";
 
 	}
 	void clearEdges(){
@@ -38,4 +39,7 @@ public:
 	int sizeEdgesOut()const {
 		return edgesOut.size();
 	}
+
+	/// void setIndex(size_t newIndex);
+	/// size_t getIndex() const;
 };

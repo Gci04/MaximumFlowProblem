@@ -6,6 +6,7 @@ class Edge{
 private:
 	int value; // edge flow
 	int capacity; 
+	/// use indexes in Network::vertices instead of pointers
 	Vertex * start;
 	Vertex * end;
 

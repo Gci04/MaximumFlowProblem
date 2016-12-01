@@ -37,11 +37,11 @@ public:
 	void AddEdge(const Edge &e);
 	void AddVertex(Vertex* a);
 	
-	void SetSink(Vertex *a);
-	Vertex * getSink();
+	void setSink(Vertex *a) ;
+	Vertex * getSink() const;
 
-	void SetSource(Vertex *a);
-	Vertex * getSource();
+	void setSource(Vertex *a) ;
+	Vertex * getSource() const;
 
 	int totalVertices() const{
 		return vertices.size();
