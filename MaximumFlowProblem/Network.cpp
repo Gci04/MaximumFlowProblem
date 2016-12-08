@@ -28,3 +28,15 @@ const std::vector<Vertex*> Network:: getVertices() const {
 	return vertices;
 }
 
+void Network::changeEdge(Edge newEdge) {
+	Vertex* start = newEdge.getStart();
+	Vertex* end = newEdge.getEnd();
+	std::vector<Edge> edgesOut = start->getEdgesOut();
+	for (size_t i = 0; i < edgesOut.size(); i++)
+		if (edgesOut[i].getEnd() == end)
+			start->setEdgeOut(i, newEdge);
+	std::vector<Edge> edgesIn = end->getEdgesIn();
+	for (size_t i = 0; i < edgesIn.size(); i++)
+		if (edgesIn[i].getStart() == start)
+			end->setEdgeIn(i, newEdge);
+}

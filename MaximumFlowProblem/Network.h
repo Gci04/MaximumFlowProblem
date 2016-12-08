@@ -48,4 +48,6 @@ public:
 	}
 
 	const std::vector<Vertex*> getVertices() const ;
+
+	void changeEdge(Edge newEdge);
 };

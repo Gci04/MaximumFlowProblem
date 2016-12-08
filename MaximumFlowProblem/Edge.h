@@ -11,15 +11,7 @@ private:
 	Vertex * end;
 
 public:
-	/*Edge(){}
-	Edge(const Edge& other)
-	{
-		value = other.value;
-		capacity = other.capacity;
-		start = new Vertex();
-		start = other.start;
-		end = new Vertex(*other.end);
-	}*/
+
 	Edge(int val = 0, int cap = 0, Vertex * s = 0, Vertex * e = 0);
 
 	void AddValue(int a); //modifying edge flow
