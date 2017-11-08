@@ -23,11 +23,32 @@ void Network::setSource(Vertex *a){
 Vertex * Network::getSource() const{
 	return source;
 }
-
+ int Network :: totalVertices() const{
+		return vertices.size();
+	}
 const std::vector<Vertex*> Network:: getVertices() const {
 	return vertices;
 }
+/*void Network::InitializePreflow( Network *G)
+{
+	source->setHeight(vertices.size());
+	std::vector<Edge> SourceOutEdges = source->getEdgesOut();
+	for (size_t j = 0; j < source->sizeEdgesOut(); j++) {
+		SourceOutEdges[j].setValue(SourceOutEdges[j].getCapacity());
+		SourceOutEdges[j].getEnd()->setEcxess(SourceOutEdges[j].getCapacity());
+	}
 
+}*/
+/*void Network::InitPreflow(Network * G)
+{
+	source->setHeight(vertices.size());
+	std::vector<Edge> SourceOutEdges = source->getEdgesOut();
+	for (size_t j = 0; j < source->sizeEdgesOut(); j++) {
+		SourceOutEdges[j].setValue(SourceOutEdges[j].getCapacity());
+		SourceOutEdges[j].getEnd()->setEcxess(SourceOutEdges[j].getCapacity());
+	}
+
+}*/
 void Network::changeEdge(Edge newEdge) {
 	Vertex* start = newEdge.getStart();
 	Vertex* end = newEdge.getEnd();

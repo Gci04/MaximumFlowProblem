@@ -12,6 +12,8 @@ private:
 	std::vector<Edge> edgesOut;
 	std::vector<Edge> edgesIn;
 	size_t index;
+	int height = 0;
+	int excess = 0;
 
 public:
 
@@ -24,9 +26,20 @@ public:
 	void setEdgeIn(size_t idx, Edge edge);
 	void setEdgeOut(size_t idx, Edge edge);
 
+	//For height init and modification
+	void setHeight(int h);
+	int getHeight() const;
+
+	//for ecxess init and modification
+	void addEcxess(int ex);
+	void setEcxess(int ex);
+	int getExcess() const;
+
 	// Temporary for debugging
 	void print() const {
 		std::cout << "Index: " << getIndex() << "\n";
+		std::cout << "Height: " << getHeight() << "\n";
+		std::cout << "Excess: " << getExcess() << "\n";
 		std::cout << "Edges out: ";
 		for (size_t i = 0; i < edgesOut.size(); i++)
 			std::cout << edgesOut[i].getValue() << "/" << edgesOut[i].getCapacity() << "    ";

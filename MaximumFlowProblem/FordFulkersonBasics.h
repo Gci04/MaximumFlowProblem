@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include "PushRelabel.h"
 
 using namespace std;
 
@@ -15,3 +16,4 @@ void printNetwork(Network* n);
 Network * Residual(Network* G);
 std ::vector <Edge> computeAugmentingPath(const Network * G);
 void printPath(vector<Edge> path);
+void FordFulkerson(Network * n);

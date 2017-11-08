@@ -37,3 +37,28 @@ void Vertex::setEdgeIn(size_t idx, Edge edge) {
 void Vertex::setEdgeOut(size_t idx, Edge edge) {
 	edgesOut[idx] = edge;
 }
+
+void Vertex::setHeight(int h)
+{
+	height = h;
+}
+
+int Vertex::getHeight() const
+{
+	return height;
+}
+
+void Vertex::addEcxess(int ex)
+{
+	excess += ex;
+}
+
+void Vertex::setEcxess(int ex)
+{
+	excess = ex;
+}
+
+int Vertex::getExcess() const
+{
+	return excess;
+}

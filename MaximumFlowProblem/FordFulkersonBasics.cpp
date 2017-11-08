@@ -1,9 +1,6 @@
 #include "FordFulkersonBasics.h"
 
 Network* createGraph(){
-	// Examle: page 726
-	// original network - first row, right
-	// residual - second row, left
 	Vertex *s = new Vertex;
 	Vertex *t = new Vertex;
 	Vertex *v1 = new Vertex;
@@ -29,16 +26,24 @@ Network* createGraph(){
 	result->setSource(s);
 	result->setSink(t);
 
-	result->AddEdge(Edge(4,16,s,v1));
-	result->AddEdge(Edge(0,13,s,v2));
-	result->AddEdge(Edge(4,14,v2,v4));
-	result->AddEdge(Edge(4,12,v1,v3));
-	result->AddEdge(Edge(0,4,v2,v1));
-	result->AddEdge(Edge(4,9,v3,v2));
-	result->AddEdge(Edge(0,20,v3,t));
-	result->AddEdge(Edge(0,7,v4,v3));
-	result->AddEdge(Edge(4,4,v4,t));
+	result->AddEdge(Edge(0,15,s,v1)); //s to A
 
+	result->AddEdge(Edge(0,10,s,v2)); // s to B
+	
+	result->AddEdge(Edge(0,9,v2,v4)); // B to D
+	
+	result->AddEdge(Edge(0,7,v1,v3)); // A to C
+	
+	result->AddEdge(Edge(0,4,v1,v2)); // A to B
+	
+	result->AddEdge(Edge(0,7,v1,v4)); // A to D
+	
+	result->AddEdge(Edge(0,25,v3,t)); // C to t
+	
+	result->AddEdge(Edge(0,15,v4,v3)); // D to C
+	
+	result->AddEdge(Edge(0,5,v4,t)); // D to t
+	
 	return result;
 }
 
@@ -50,10 +55,14 @@ void printNetwork(Network* n) {
 	cout<<'\n';
 }
 void printPath (vector<Edge> path){
+	cout<<"Path found : "<<'\n';
 	for(int i = 0; i < path.size() ; i++){
-		cout << path[i].getStart()->getIndex() <<"  " <<path[i].getEnd()->getIndex() << "  "<<path[i].getValue()<<" / "<<path[i].getCapacity()<<endl;
+		cout << path[i].getStart()->getIndex() <<" -> " <<path[i].getEnd()->getIndex() << "  "<<path[i].getValue()<<"/"<<path[i].getCapacity()<<endl;
 	}
+	cout<<'\n';
 }
+
+
 
 Network * Residual(Network* G){
 	Network* result = new Network();
@@ -86,6 +95,7 @@ Network * Residual(Network* G){
 			}
 		}
 	}
+	Init_Preflow(result);
 	return result;
 }
 
@@ -170,4 +180,29 @@ void updateFlow(const vector<Edge>& augPath , Network* Original){
 				break;
 			}
 	}
+}
+
+void FordFulkerson(Network * n)
+{
+	Network * residual;
+	bool stop = false;
+	while (stop == false) {
+		std::cout << "New step\n\n\n";
+		printNetwork(n);
+		residual = Residual(n);
+		//std::cout << "Residual network:\n";
+		//printNetwork(test2);
+		vector <Edge> path = computeAugmentingPath(residual);
+		if (path.size() == 0) {
+			stop = true;
+			std::cout << "Stopped\n";
+		}
+		else {
+			printPath(path);
+			updateFlow(path, n);
+			std::cout << "Updated network:\n";
+			//printNetwork(n);
+		}
+	}
+	delete residual;
 }
