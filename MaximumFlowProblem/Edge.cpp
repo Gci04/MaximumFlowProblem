@@ -16,6 +16,11 @@ void Edge::setCapacity(int cap){
 	capacity = cap;
 }
 
+void Edge::upateCapacity(int capacity)
+{
+	this->capacity += capacity;
+}
+
 int Edge::getValue() const{
 	return value;
 }

@@ -8,3 +8,5 @@ void Relabel(Vertex* v);
 void Init_Preflow(Network *G);
 void UpdateOriginalGraph(Network * G);
 void PushRelabel(Network * G);
+bool TryPush(Vertex* u);
+bool TryRelabel(Vertex * u);

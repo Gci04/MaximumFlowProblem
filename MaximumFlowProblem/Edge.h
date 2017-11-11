@@ -18,6 +18,7 @@ public:
 
 	int getCapacity() const;
 	void setCapacity(int cap);
+	void upateCapacity(int capacity);
 
 	int getValue() const;
 	void setValue(int val);
