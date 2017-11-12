@@ -16,7 +16,7 @@ int main(){
 	//FordFulkerson(test);
 	Init_Preflow(test);
 	printNetwork(test);
-	//test = Residual(test);
+	test = Residual(test);
 	//printNetwork(test);
 	delete test;
 	//delete test2;
