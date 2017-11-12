@@ -1,5 +1,15 @@
-﻿  FordFulkersonBasics.cpp
-c:\users\gcinizwe\documents\maximum flow problem\maximumflowproblem\maximumflowproblem\maximumflowproblem\fordfulkersonbasics.cpp(59): warning C4018: '<': signed/unsigned mismatch
+﻿  Vertex.cpp
+  PushRelabel.cpp
+c:\users\gcinizwe\documents\github\maximumflowproblem\maximumflowproblem\pushrelabel.cpp(39): warning C4018: '<': signed/unsigned mismatch
+c:\users\gcinizwe\documents\github\maximumflowproblem\maximumflowproblem\pushrelabel.cpp(77): warning C4018: '<': signed/unsigned mismatch
+c:\users\gcinizwe\documents\github\maximumflowproblem\maximumflowproblem\pushrelabel.cpp(103): warning C4551: function call missing argument list
+  Network.cpp
+  Main.cpp
+  FordFulkersonBasics.cpp
+c:\users\gcinizwe\documents\github\maximumflowproblem\maximumflowproblem\fordfulkersonbasics.cpp(59): warning C4018: '<': signed/unsigned mismatch
+  Edge.cpp
+  Generating Code...
+c:\users\gcinizwe\documents\github\maximumflowproblem\maximumflowproblem\pushrelabel.cpp(104): warning C4700: uninitialized local variable 'v' used
 Edge.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
-  MaximumFlowProblem.vcxproj -> C:\Users\Gcinizwe\Documents\Maximum Flow Problem\MaximumFlowProblem\MaximumFlowProblem\Debug\MaximumFlowProblem.exe
-  MaximumFlowProblem.vcxproj -> C:\Users\Gcinizwe\Documents\Maximum Flow Problem\MaximumFlowProblem\MaximumFlowProblem\Debug\MaximumFlowProblem.pdb (Full PDB)
+  MaximumFlowProblem.vcxproj -> C:\Users\Gcinizwe\Documents\GitHub\MaximumFlowProblem\Debug\MaximumFlowProblem.exe
+  MaximumFlowProblem.vcxproj -> C:\Users\Gcinizwe\Documents\GitHub\MaximumFlowProblem\Debug\MaximumFlowProblem.pdb (Full PDB)
