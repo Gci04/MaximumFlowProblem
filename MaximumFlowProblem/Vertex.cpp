@@ -10,9 +10,19 @@ void Vertex::addEdge(const Edge& edge) {
 	// else report an error
 }
 
-const std::vector<Edge> Vertex:: getEdgesOut() const{
+std::vector<Edge>& Vertex::getEdgesOut() {
 	return edgesOut;
 }
+
+const std::vector<Edge>& Vertex:: getEdgesOut() const{
+	return edgesOut;
+}
+
+std::vector<Edge>& Vertex::getEdgesIn()
+{
+	return edgesIn;
+}
+
 
 const std::vector<Edge> Vertex:: getEdgesIn() const{
 	return edgesIn;

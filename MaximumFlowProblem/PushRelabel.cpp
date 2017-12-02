@@ -1,96 +1,51 @@
 #include "PushRelabel.h"
 #include<algorithm>
+#include<iostream>
 
-void Push(Vertex * u, Vertex * v , Edge * uv ) //push from u to v
-{
-	int value = std::min(u->getExcess(), uv->getCapacity());
-	bool vuExist = false; 
-	Edge * vu = NULL;
-	std::vector<Edge> v_outEdges = v->getEdgesOut();
-	for (size_t i = 0; i < v->getEdgesOut().size(); i++)//find edge form v to u
-	{
-		if (v_outEdges[i].getEnd() == u) {
-			vu = &v_outEdges[i];
-			vuExist = true;
-			break;
-		}
-	}
-	int newCapacity = uv->getCapacity() + value;
-	/*if(uv->getCapacity() == value)
-	{ delete uv from graph}*/
-	uv->setCapacity(newCapacity);
-	if (vuExist) {
-		vu->upateCapacity(-value);
-	}
-	else {
-		v->addEdge(Edge(0, value, v, u)); //create new edge form v to u 
-	}
-	int u_newExcess = u->getExcess() - value;
-	int v_newExcess = v->getExcess() + value;
-	u->setEcxess(u_newExcess);
-	v->setEcxess(v_newExcess);
-}
 
-void Relabel(Vertex * u)
-{
-	//if (v->getExcess() > 0) { //no need to check the height precondition here since its will ve already checked in TryPush()
-		std::vector<Edge> u_outEdges = u->getEdgesOut();
-		int increase = u_outEdges[0].getEnd()->getHeight();
-		for (size_t i = 1; i < u->sizeEdgesOut(); i++) {
-			int v_height = u_outEdges[i].getEnd()->getHeight();
-			increase = std::min(v_height,increase);
-
-		}
-		u->setHeight(increase + 1);
-}
 
 void Init_Preflow(Network * G)
 {
-	int sum_capacities = 0;
 	const Vertex *Src = G->getSource();
 	std::vector<Edge> Source_Out = Src->getEdgesOut();
 	G->getSource()->setHeight(G->totalVertices());
 	for (size_t i = 0; i < Src->getEdgesOut().size(); i++) {
-		sum_capacities += Source_Out[i].getCapacity();
-		Edge newEdge = Source_Out[i];
-		newEdge.setValue(newEdge.getValue() + Source_Out[i].getCapacity());
+		Edge newEdge = Source_Out[i]; 
+		//newEdge.setValue(newEdge.getValue() + Source_Out[i].getCapacity());
+		newEdge.setValue(Source_Out[i].getCapacity());
 		G->changeEdge(newEdge);
 		//Source_Out[i].setValue(Source_Out[i].getCapacity());
+		//below line commented for working with residual net in the push-relabel 
+		G->AddEdge(Edge(0, Source_Out[i].getCapacity(), Source_Out[i].getEnd(), Source_Out[i].getStart())); //set reverse edge from source
 		Source_Out[i].getEnd()->setEcxess(Source_Out[i].getCapacity());
-		
 	}
-	//G->getSource()->setEcxess(sum_capacities);
-
 }
-void UpdateOriginalGraph(Network * G)
-{
 
-}
 void GenericPushRelabel(Network * G)
 {
-	Init_Preflow(G);
+	bool a;
+	int j = 0;
+	//Init_Preflow(G);
 	std::vector<Vertex*> vertices = G->getVertices();
-	bool isOver = false;
-	while (!isOver)
+	while (overFlowingVertex(vertices))
 	{
-		isOver = true;
-		for (int i = 0; i < vertices.size(); i++)
+		std::cout << j++ << std::endl;
+		for (size_t i = 0; i < vertices.size(); i++)
 		{
 			if (vertices[i] == G->getSource() || vertices[i] == G->getSink())
 				continue;
-			else
+			if(TryPush(vertices[i]))
 			{
-				isOver = isOver && !TryPush(vertices[i]);
-				isOver = isOver && !TryRelabel(vertices[i]);
+				Relabel(vertices[i]);
+				i--;
 			}
-			
 		}
 	}
 
 }
 
 void PushRelabel(Network * G) 
-{
+{/*
 	std::queue<Vertex *> active;
 	std::vector<Edge> source_out = G->getSource()->getEdgesOut(); //getEdgesOut() - returns constant value
 	for (size_t i = 0; i < source_out.size(); i++) {
@@ -107,7 +62,7 @@ void PushRelabel(Network * G)
 			//push(v);
 			//if((v->getExcess() == 0){ active.pop() }
 		}
-		/*
+		
 		for (size_t i = 0; i < v_out.size(); i++)
 		{
 			
@@ -119,64 +74,140 @@ void PushRelabel(Network * G)
 			else if (v->getExcess() == 0)
 				break;
 				
-		}*/
+		}
 	}
-	//UpdateOriginalGraph(G);
-	
+	*/
 }
 
 bool TryPush(Vertex * u)
 {
-	bool isOVerflowing = (u->getExcess() > 0);
-	if(isOVerflowing){
-		std::vector<Edge> u_out = u->getEdgesOut();
-		// here go through all vertices v instead
-		for (size_t i = 0; i < u_out.size(); i++)
-		{
-			Vertex* v = u_out[i].getEnd();
-			bool isHeightMatching = (u->getHeight() == v->getHeight() + 1);
-
-			/*if (isOVerflowing == false) {
-			return true;
-			}*/
-			//add condition for cf(u, v) > 0
-			if (isOVerflowing && isHeightMatching && u_out[i].getCapacity() > 0) {
-				Push(u, v, &u_out[i]);
-			}
-			else if (i == u_out.size() && isOVerflowing) {
-				return false;
-			}
-		}
-		return true;
-	}
-	else
-	{
+	bool isOverflowing = (u->getExcess() > 0);
+	if (!isOverflowing)
 		return false;
+	// from now on u is overflowing
+	bool result = true;
+	std::vector<Edge>& u_out = u->getEdgesOut();
+	for (size_t i = 0; i < u_out.size(); i++)
+	{
+		Vertex* v = u_out[i].getEnd();
+		bool isHeightMatching = (u->getHeight() == v->getHeight() + 1);
+		bool isEdgeNotSaturated = (u_out[i].getValue() < u_out[i].getCapacity());
+		if (isHeightMatching && isEdgeNotSaturated)
+		{
+			Push(u, v, &u_out[i]); 
+			//maybe check if its still overflowing , if no return true
+			if (u->getExcess() == 0) {
+				result = false;
+				break;
+			}	
+		}
+	}
+	return result;
+}
+
+void Push(Vertex * u, Vertex * v, Edge * uv) //push from u to v
+{
+	int delta = std::min(u->getExcess(), uv->getCapacity() - uv->getValue());
+	u->setEcxess(u->getExcess() - delta);
+	v->setEcxess(v->getExcess() + delta);
+
+	// Modify uv edge . Only modifies u.out edges
+	uv->AddValue(delta); 
+	//for v.in edges update
+	std::vector<Edge>& v_InEdges = v->getEdgesIn();
+	for (size_t j = 0; j < v_InEdges.size(); j++)
+	{
+		if (v_InEdges[j].getStart() == u)
+		{
+			v_InEdges[j].AddValue(delta);
+			break;
+		}
+	} 
+	//for back edge - vu modification
+	bool Exist = false;
+	std::vector<Edge>& v_OutEdges = v->getEdgesOut();
+	for (size_t i = 0; i < v_OutEdges.size(); i++)
+	{
+		if (v_OutEdges[i].getEnd() == u) {
+			Exist = true;
+			v_OutEdges[i].AddValue(-delta);
+			std::vector<Edge>& u_InEdges = u->getEdgesIn();
+			for (size_t j = 0; j < u_InEdges.size(); j++)
+			{
+				if (u_InEdges[j].getStart() == v)
+				{
+					u_InEdges[j].AddValue(-delta);
+					break;
+				}
+			}
+			break;
+		}	
+	}
+	if (Exist == false) {
+		int temp = uv->getCapacity() - delta;
+		v->addEdge(Edge(temp, uv->getCapacity(), v, u));
+		u->addEdge(Edge(temp, uv->getCapacity(), v, u));
 	}
 }
 
 bool TryRelabel(Vertex * u)
 {
 	bool isOverflowing = (u->getExcess() > 0);
-	if (isOverflowing)
+	if (!isOverflowing)
+		return false;
+	// u is overflowing
+	std::vector<Edge>& u_out = u->getEdgesOut();
+	int minHeight = u_out[1].getEnd()->getHeight(); // will need to fix
+	for (size_t i = 0; i < u_out.size(); i++)
 	{
-		bool lessHeight = false;
-		std::vector<Edge> u_outEdges = u->getEdgesOut();
-		for (size_t i = 0; i < u->getEdgesOut().size(); i++)
-		{
-			Vertex* temp = u_outEdges[i].getEnd();
-			if (u->getHeight() < temp->getHeight()) {
-				lessHeight = true;
-			}
+		Vertex* v = u_out[i].getEnd();
+		//bool isEdgeNotSaturated = (u_out[i].getCapacity() > 0);
+		bool isEdgeNotSaturated = (u_out[i].getValue() < u_out[i].getCapacity());
+		if (isEdgeNotSaturated && v->getHeight() < minHeight) {
+			minHeight = v->getHeight();
 		}
-		if (lessHeight) {
-			Relabel(u);
-			
-		}
+	}
+	/*if (isEdgeNotSaturated && ((v->getHeight() < minHeight) || (minHeight < 0)))
+		minHeight = v->getHeight();
+}*/
+	if (u->getHeight() <= minHeight) {
+		u->setHeight(minHeight + 1);
 		return true;
 	}
-	else {
+	else
 		return false;
-	}
 }
 
+void Relabel(Vertex * u)
+{
+	bool isOverflowing = (u->getExcess() > 0);
+	if (!isOverflowing)
+		return;
+	// u is overflowing
+	std::vector<Edge>& u_out = u->getEdgesOut();
+	int minHeight = 100000; // will need to fix
+	for (size_t i = 0; i < u_out.size(); i++)
+	{
+		Vertex* v = u_out[i].getEnd();
+		bool isEdgeNotSaturated = (u_out[i].getValue() < u_out[i].getCapacity());
+		if (isEdgeNotSaturated) {
+			minHeight = std::min(minHeight, v->getHeight());
+		}
+	}
+	if (u->getHeight() <= minHeight) {
+		u->setHeight(minHeight + 1);
+	}
+}
+bool overFlowingVertex(std::vector<Vertex*> vertices)
+{
+	for (size_t  i = 1; i < vertices.size() - 1 ; i++)
+	{
+		if (vertices[i]->getExcess() > 0 )
+			return true;
+	}
+	return false;
+}
+
+void UpdateEdgeReverseFlow(Edge * uv) {
+
+}

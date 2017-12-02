@@ -33,10 +33,11 @@ Network* createGraph(){
 	result->AddEdge(Edge(0,9,v2,v4)); // B to D
 	
 	result->AddEdge(Edge(0,7,v1,v3)); // A to C
+
+	result->AddEdge(Edge(0, 7, v1, v4)); // A to D
 	
 	result->AddEdge(Edge(0,4,v1,v2)); // A to B
 	
-	result->AddEdge(Edge(0,7,v1,v4)); // A to D
 	
 	result->AddEdge(Edge(0,25,v3,t)); // C to t
 	
@@ -65,6 +66,7 @@ void printPath (vector<Edge> path){
 
 
 Network * Residual(Network* G){
+	
 	Network* result = new Network();
 	const vector<Vertex*>& vertices = G->getVertices();
 	vector<Vertex*> newVertices ;
@@ -95,7 +97,7 @@ Network * Residual(Network* G){
 			}
 		}
 	}
-	Init_Preflow(result);
+	
 	return result;
 }
 

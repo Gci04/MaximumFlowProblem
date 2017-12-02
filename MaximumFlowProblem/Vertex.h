@@ -18,7 +18,9 @@ private:
 public:
 
 	void addEdge(const Edge& edge);
-	const std::vector<Edge> getEdgesOut() const;
+	std::vector<Edge>& getEdgesOut();
+	const std::vector<Edge>& getEdgesOut() const;
+	std::vector<Edge>& getEdgesIn();
 	const std::vector<Edge> getEdgesIn() const;
 	int sizeEdgesOut()const;
 	void setIndex(size_t newIndex);
