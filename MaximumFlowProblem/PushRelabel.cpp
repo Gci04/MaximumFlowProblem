@@ -1,4 +1,5 @@
 #include "PushRelabel.h"
+#include "FordFulkersonBasics.h"
 #include<algorithm>
 #include<iostream>
 
@@ -23,16 +24,16 @@ void Init_Preflow(Network * G)
 
 void GenericPushRelabel(Network * G)
 {
-	bool a;
-	int j = 0;
-	//Init_Preflow(G);
-	std::vector<Vertex*> vertices = G->getVertices();
+    Network * res;
+    res = Residual(G);
+	Init_Preflow(res);
+	std::vector<Vertex*> vertices = res->getVertices();
 	while (overFlowingVertex(vertices))
 	{
-		std::cout << j++ << std::endl;
+		//std::cout << j++ << std::endl;
 		for (size_t i = 0; i < vertices.size(); i++)
 		{
-			if (vertices[i] == G->getSource() || vertices[i] == G->getSink())
+			if (vertices[i] == res->getSource() || vertices[i] == res->getSink())
 				continue;
 			if(TryPush(vertices[i]))
 			{
@@ -41,11 +42,14 @@ void GenericPushRelabel(Network * G)
 			}
 		}
 	}
-
+    /*for (size_t i = 0; i < G->getVertices().size(); i++) {
+        std::vector<Edge>& v_out = vertices[i]->getEdgesOut();
+    }*/
+    printNetwork(res);
 }
 
-void PushRelabel(Network * G) 
-{/*
+/*void PushRelabel(Network * G)
+{
 	std::queue<Vertex *> active;
 	std::vector<Edge> source_out = G->getSource()->getEdgesOut(); //getEdgesOut() - returns constant value
 	for (size_t i = 0; i < source_out.size(); i++) {
@@ -53,33 +57,21 @@ void PushRelabel(Network * G)
 	}
 	while (!active.empty()) {
 		Vertex * v;
-		// v = active.pop() or v = active.front();
+        //v = active.pop() or
+         v = active.front();
 		//std::vector<Edge> v_out = v->getEdgesOut();
-		if (!TryPush) {
+        if (TryPush(v)) {
 			Relabel(v);
 		}
 		else {
-			//push(v);
-			//if((v->getExcess() == 0){ active.pop() }
-		}
-		
-		for (size_t i = 0; i < v_out.size(); i++)
-		{
-			
-			Push(v, v_out[i].getEnd(), &v_out[i]);
-			if (i == v_out.size() && v->getExcess() != 0) {
-				Relabel(v);
-				i = 0;
-			}
-			else if (v->getExcess() == 0)
-				break;
-				
+            //push(v);
+			if((v->getExcess() == 0))
+                active.pop();
 		}
 	}
-	*/
-}
-
-bool TryPush(Vertex * u)
+}*/
+//bool TryPush(Vertex * u, std::queue<Vertex *> * q )
+bool TryPush(Vertex * u/*, std::vector<int> v = std::vector<int>()*/)
 {
 	bool isOverflowing = (u->getExcess() > 0);
 	if (!isOverflowing)
@@ -94,7 +86,10 @@ bool TryPush(Vertex * u)
 		bool isEdgeNotSaturated = (u_out[i].getValue() < u_out[i].getCapacity());
 		if (isHeightMatching && isEdgeNotSaturated)
 		{
-			Push(u, v, &u_out[i]); 
+			Push(u, v, &u_out[i]);
+            
+            /*if(!q->empty())
+                q->push(v);*/
 			//maybe check if its still overflowing , if no return true
 			if (u->getExcess() == 0) {
 				result = false;
@@ -102,7 +97,7 @@ bool TryPush(Vertex * u)
 			}	
 		}
 	}
-	return result;
+    return result;
 }
 
 void Push(Vertex * u, Vertex * v, Edge * uv) //push from u to v
@@ -168,8 +163,7 @@ bool TryRelabel(Vertex * u)
 		}
 	}
 	/*if (isEdgeNotSaturated && ((v->getHeight() < minHeight) || (minHeight < 0)))
-		minHeight = v->getHeight();
-}*/
+		minHeight = v->getHeight();*/
 	if (u->getHeight() <= minHeight) {
 		u->setHeight(minHeight + 1);
 		return true;
@@ -207,7 +201,13 @@ bool overFlowingVertex(std::vector<Vertex*> vertices)
 	}
 	return false;
 }
-
-void UpdateEdgeReverseFlow(Edge * uv) {
-
+void UpdateOriginalNetwork(Network * Original , std::vector<Vertex *> res_vertices){
+    std::vector<Vertex*> Original_vertices = Original->getVertices();
+    for (int i = 0; i < Original_vertices.size() ; i++) {
+         std::vector<Edge>& current_out = Original_vertices[i]->getEdgesOut();
+        for (int j = 0; j < current_out.size(); j++) {
+            
+        }
+        
+    }
 }
