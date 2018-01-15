@@ -48,8 +48,8 @@ void GenericPushRelabel(Network * G)
     printNetwork(res);
 }
 
-/*void PushRelabel(Network * G)
-{
+void PushRelabel(Network * G)
+{/*
 	std::queue<Vertex *> active;
 	std::vector<Edge> source_out = G->getSource()->getEdgesOut(); //getEdgesOut() - returns constant value
 	for (size_t i = 0; i < source_out.size(); i++) {
@@ -68,8 +68,8 @@ void GenericPushRelabel(Network * G)
 			if((v->getExcess() == 0))
                 active.pop();
 		}
-	}
-}*/
+	}*/
+}
 //bool TryPush(Vertex * u, std::queue<Vertex *> * q )
 bool TryPush(Vertex * u/*, std::vector<int> v = std::vector<int>()*/)
 {

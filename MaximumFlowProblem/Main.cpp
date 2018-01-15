@@ -9,22 +9,18 @@
 using namespace std;
 
 int main() {
-	//Vertex v;
-	//Edge e;
-	Network *test2;
-	Network *test = createGraph();
-	//FordFulkerson(test);
-	//Init_Preflow(test);
-	//printNetwork(test);
-	Init_Preflow(test);
-	//printNetwork(test);
+	
+	Network *test2 = createGraph();
+	FordFulkerson(test2);
+	cout << "\n\n\n************ After Ford-Fulkerson *************\n";
+	printNetwork(test2);
 
-	std::cout << "\n\n\\n\nAfter push-relabel:\n";
+	cout << "\n\n\n************ After push-relabel ***************\n";
+	Network *test = createGraph();
 	GenericPushRelabel(test);
-	//printNetwork(test);
-	//test2 = Residual(test);
 
 	delete test;
+	delete test2;
 
 	return 0;
 }
