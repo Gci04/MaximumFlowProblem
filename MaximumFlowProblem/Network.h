@@ -12,6 +12,7 @@ private:
 
 public:
 
+    //bool getEdge(Vertex * start, Vertex * end)
 	void changeEdge(Edge newEdge);
 	void AddEdge(const Edge &e);
 	void AddVertex(Vertex* a);

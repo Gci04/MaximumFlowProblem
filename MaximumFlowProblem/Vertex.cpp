@@ -29,7 +29,7 @@ const std::vector<Edge> Vertex:: getEdgesIn() const{
 }
 
 int Vertex::sizeEdgesOut()const {
-	return edgesOut.size();
+	return (int)edgesOut.size();
 }
 
 void Vertex::setIndex(size_t newIndex){

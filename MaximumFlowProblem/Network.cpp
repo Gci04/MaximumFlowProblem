@@ -24,7 +24,7 @@ Vertex * Network::getSource() const{
 	return source;
 }
  int Network :: totalVertices() const{
-		return vertices.size();
+		return static_cast<int>(vertices.size());
 	}
 const std::vector<Vertex*> Network:: getVertices() const {
 	return vertices;

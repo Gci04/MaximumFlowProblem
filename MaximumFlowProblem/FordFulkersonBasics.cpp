@@ -22,28 +22,18 @@ Network* createGraph(){
 	t->setIndex(5);
 	result->AddVertex(t);
 	
-
 	result->setSource(s);
 	result->setSink(t);
 
-	result->AddEdge(Edge(0,15,s,v1)); //s to A
-
-	result->AddEdge(Edge(0,10,s,v2)); // s to B
-	
-	result->AddEdge(Edge(0,9,v2,v4)); // B to D
-	
-	result->AddEdge(Edge(0,7,v1,v3)); // A to C
-
-	result->AddEdge(Edge(0, 7, v1, v4)); // A to D
-	
-	result->AddEdge(Edge(0,4,v1,v2)); // A to B
-	
-	
-	result->AddEdge(Edge(0,25,v3,t)); // C to t
-	
-	result->AddEdge(Edge(0,15,v4,v3)); // D to C
-	
-	result->AddEdge(Edge(0,5,v4,t)); // D to t
+	result->AddEdge(Edge(0,15,s,v1)); //0 to 1
+	result->AddEdge(Edge(0,10,s,v2)); // 0 to 2
+	result->AddEdge(Edge(0,9,v2,v4)); // 2 to 4
+    result->AddEdge(Edge(0,4,v1,v2)); // 1 to 2
+	result->AddEdge(Edge(0,7,v1,v3)); // 1 to 3
+	result->AddEdge(Edge(0,7,v1,v4)); // 1 to 4
+	result->AddEdge(Edge(0,25,v3,t)); // 3 to 5
+	result->AddEdge(Edge(0,15,v4,v3)); // 4 to 3
+	result->AddEdge(Edge(0,5,v4,t)); // 4 to 5
 	
 	return result;
 }
@@ -58,12 +48,10 @@ void printNetwork(Network* n) {
 void printPath (vector<Edge> path){
 	cout<<"Path found : "<<'\n';
 	for(int i = 0; i < path.size() ; i++){
-		cout << path[i].getStart()->getIndex() <<" -> " <<path[i].getEnd()->getIndex() << "  "<<path[i].getValue()<<"/"<<path[i].getCapacity()<<endl;
+		cout << path[i].getStart()->getIndex()<<" -> " <<path[i].getEnd()->getIndex() <<"  "<<path[i].getValue()<<"/"<<path[i].getCapacity()<<endl;
 	}
 	cout<<'\n';
 }
-
-
 
 Network * Residual(Network* G){
 	
@@ -116,7 +104,7 @@ vector<Edge> constructPath(const Network * G, map<Vertex*, int>& distance) {
 			}
 	}
 	vector<Edge> path;
-	for (int i = invertedPath.size() - 1; i >= 0; i--)
+	for (int i = (int)invertedPath.size() - 1; i >= 0; i--)
 		path.push_back(invertedPath[i]);
 	return path;
 }
@@ -159,8 +147,8 @@ void updateFlow(const vector<Edge>& augPath , Network* Original){
 	int valueIncrement = minCapacity(augPath);
 	const vector<Vertex*>& vertices = Original->getVertices();
 	for(size_t i = 0; i < augPath.size(); i++){
-		int startIdx = augPath[i].getStart()->getIndex();
-		int endIdx = augPath[i].getEnd()->getIndex();
+		int startIdx = (int)augPath[i].getStart()->getIndex();
+		int endIdx = (int)augPath[i].getEnd()->getIndex();
 		// Check if edge in the path is same direction as in network
 		std::vector<Edge> edgesOut = vertices[startIdx]->getEdgesOut();
 		for (size_t j = 0; j < edgesOut.size(); j++)
@@ -186,7 +174,7 @@ void updateFlow(const vector<Edge>& augPath , Network* Original){
 
 void FordFulkerson(Network * n)
 {
-	Network * residual;
+	Network * residual = NULL;
 	bool stop = false;
 	while (stop == false) {
 		std::cout << "New step\n\n\n";
