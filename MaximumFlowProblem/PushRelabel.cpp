@@ -5,7 +5,10 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
 
 >>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
 void Init_Preflow(Network * G)
@@ -28,9 +31,12 @@ void Init_Preflow(Network * G)
 void GenericPushRelabel(Network * G)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Network * res;
 	res = Residual(G);
 =======
+=======
+>>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
     Network * res;
     res = Residual(G);
 >>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
@@ -218,6 +224,7 @@ bool overFlowingVertex(std::vector<Vertex*> vertices)
 	return false;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 void UpdateOriginalNetwork(Network * Original, std::vector<Vertex *> res_vertices) {
 	std::vector<Vertex*> Original_vertices = Original->getVertices();
 	for (int i = 0; i < Original_vertices.size(); i++) {
@@ -228,6 +235,8 @@ void UpdateOriginalNetwork(Network * Original, std::vector<Vertex *> res_vertice
 
 	}
 =======
+=======
+>>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
 void UpdateOriginalNetwork(Network * Original , std::vector<Vertex *> res_vertices){
     std::vector<Vertex*> Original_vertices = Original->getVertices();
     for (int i = 0; i < Original_vertices.size() ; i++) {
@@ -237,5 +246,8 @@ void UpdateOriginalNetwork(Network * Original , std::vector<Vertex *> res_vertic
         }
         
     }
+<<<<<<< HEAD
+>>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
+=======
 >>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
 }

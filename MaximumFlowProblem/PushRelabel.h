@@ -13,7 +13,11 @@ bool TryRelabel(Vertex * u);
 void Relabel(Vertex * u);
 bool overFlowingVertex(std::vector<Vertex*> vertices);
 <<<<<<< HEAD
+<<<<<<< HEAD
 void UpdateOriginalNetwork(Network * Original, std::vector<Vertex *> res_vertices);
+=======
+void UpdateOriginalNetwork(Network * Original , std::vector<Vertex *> res_vertices);
+>>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
 =======
 void UpdateOriginalNetwork(Network * Original , std::vector<Vertex *> res_vertices);
 >>>>>>> bb0610d2d4e3583c6edb919174e69388d03c1d52
