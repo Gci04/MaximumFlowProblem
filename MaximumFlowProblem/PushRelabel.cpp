@@ -42,9 +42,6 @@ void GenericPushRelabel(Network * G)
 			}
 		}
 	}
-    /*for (size_t i = 0; i < G->getVertices().size(); i++) {
-        std::vector<Edge>& v_out = vertices[i]->getEdgesOut();
-    }*/
     printNetwork(res);
 }
 

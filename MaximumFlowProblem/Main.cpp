@@ -10,17 +10,18 @@ using namespace std;
 
 int main() {
 	
-	Network *test2 = createGraph();
-	FordFulkerson(test2);
-	cout << "\n\n\n************ After Ford-Fulkerson *************\n";
-	printNetwork(test2);
+	Network *test = createGraph(10);
+
+	cout << "\n\n\n************ Input Flow Network ***************\n";
+	printNetwork(test);
 
 	cout << "\n\n\n************ After push-relabel ***************\n";
-	Network *test = createGraph();
 	GenericPushRelabel(test);
 
-	delete test;
-	delete test2;
+	FordFulkerson(test);
+	cout << "\n\n\n************ After Ford-Fulkerson *************\n";
+	printNetwork(test);
 
+	delete test;
 	return 0;
 }
