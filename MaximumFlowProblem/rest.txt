@@ -1,0 +1,80 @@
+Index: 0
+Height: 6
+Excess: 0
+Edges out: 15/15    10/10    
+Edges in: 0/15   0/10   
+
+Index: 1
+Height: 0
+Excess: 15
+Edges out: 0/7    0/7    0/4    0/15    
+Edges in: 15/15   
+
+Index: 2
+Height: 0
+Excess: 10
+Edges out: 0/9    0/10    
+Edges in: 10/10   0/4   
+
+Index: 3
+Height: 0
+Excess: 0
+Edges out: 0/25    
+Edges in: 0/7   0/15   
+
+Index: 4
+Height: 0
+Excess: 0
+Edges out: 0/15    0/5    
+Edges in: 0/9   0/7   
+
+Index: 5
+Height: 0
+Excess: 0
+Edges out: 
+Edges in: 0/25   0/5   
+
+
+
+
+\n
+After push-relabel:
+0
+1
+Index: 0
+Height: 6
+Excess: 2
+Edges out: 14/15    9/10    
+Edges in: 1/15   1/10   
+
+Index: 1
+Height: 7
+Excess: 0
+Edges out: 7/7    7/7    0/4    1/15    
+Edges in: 14/15   0/7   0/7   4/4   
+
+Index: 2
+Height: 7
+Excess: 0
+Edges out: 9/9    1/10    4/4    
+Edges in: 9/10   0/4   0/9   
+
+Index: 3
+Height: 1
+Excess: 0
+Edges out: 18/25    0/7    4/15    
+Edges in: 7/7   11/15   7/25   
+
+Index: 4
+Height: 2
+Excess: 0
+Edges out: 11/15    5/5    0/7    0/9    
+Edges in: 9/9   7/7   0/5   4/15   
+
+Index: 5
+Height: 0
+Excess: 23
+Edges out: 7/25    0/5    
+Edges in: 18/25   5/5   
+
+

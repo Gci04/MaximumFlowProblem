@@ -2,13 +2,16 @@
 #include"Vertex.h"
 #include "Network.h"
 #include <queue> 
+#include <math.h>
+
+extern int count;
 
 void Push(Vertex* u, Vertex* v , Edge * uv);
 void Init_Preflow(Network *G);
 void GenericPushRelabel(Network * G);
 void PushRelabel(Network * G);
 //bool TryPush(Vertex* u, std::queue<Vertex*> * q = (NULL));
-bool TryPush(Vertex* u);
+bool TryPush(Vertex* u, int &count);
 bool TryRelabel(Vertex * u);
 void Relabel(Vertex * u);
 bool overFlowingVertex(std::vector<Vertex*> vertices);

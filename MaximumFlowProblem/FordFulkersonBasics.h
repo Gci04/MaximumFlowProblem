@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include "Vertex.h"
 #include "Edge.h"
 #include "Network.h"
@@ -13,7 +13,7 @@
 using namespace std;
 
 void updateFlow(const vector<Edge>& augPath , Network* Original);
-Network* createGraph(int total_vetrices);
+Network* createGraph(int total_vetrices, int lower, int upper);
 void printNetwork(Network* n);
 Network * Residual(Network* G);
 std ::vector <Edge> computeAugmentingPath(const Network * G);

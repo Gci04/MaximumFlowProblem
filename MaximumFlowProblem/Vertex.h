@@ -16,10 +16,10 @@ private:
 	int excess = 0;
 
 public:
-	Vertex()
-	{}
-	Vertex(size_t ind, int h, int ex) : index(ind), height(h), excess(ex)
-	{}
+    Vertex()
+    {}
+    Vertex (size_t ind, int h, int ex): index(ind), height(h), excess(ex)
+    {}
 	void addEdge(const Edge& edge);
 	std::vector<Edge>& getEdgesOut();
 	const std::vector<Edge>& getEdgesOut() const;
@@ -47,11 +47,11 @@ public:
 		std::cout << "Excess: " << getExcess() << "\n";
 		std::cout << "Edges out: ";
 		for (size_t i = 0; i < edgesOut.size(); i++)
-			std::cout << edgesOut[i].getValue() << "/" << edgesOut[i].getCapacity() << "    ";
+			std::cout <<edgesOut[i].getValue() << "/" << edgesOut[i].getCapacity() << "    ";
 		std::cout << "\nEdges in: ";
 		for (size_t i = 0; i < edgesIn.size(); i++)
-			std::cout << edgesIn[i].getValue() << "/" << edgesIn[i].getCapacity() << "   ";
+			std::cout <<edgesIn[i].getValue() << "/" << edgesIn[i].getCapacity() << "   ";
 		std::cout << "\n\n";
 	}
-
+	
 };
